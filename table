@@ -1,3 +1,9 @@
+    drop table pfmaindetail;
+    drop table pfstklist;
+    drop table pfmflist;
+
+
+
 CREATE TABLE pfmaindetail (
     pfPortfolioid 		varchar(50) CONSTRAINT porfolioid PRIMARY KEY,
 	pfuserid 			varchar(40) NOT NULL,
@@ -6,7 +12,7 @@ CREATE TABLE pfmaindetail (
     pfBeneUsers 		varchar(40),
     pfStartDt			date NOT NULL,
     pfTargetDt			date NOT NULL,
-    pfTargetIntRate 	numeric(3,2) NOT NULL,
+    pfTargetIntRate 	numeric(5,2) NOT NULL,
     pfPlannedInvAmt 	numeric(16,5) NOT NULL,
     pfInvAmtFeq         varchar(10),
     pfStkAmtsplittype   varchar(10),
@@ -16,11 +22,12 @@ CREATE TABLE pfmaindetail (
     );
 	
   CREATE TABLE pfstklist (
-    pfPortfolioid 	varchar(50) CONSTRAINT stporfolioid PRIMARY KEY,	
+    pfstklistid			varchar(50) CONSTRAINT stporfolioid PRIMARY KEY,
+    pfPortfolioid 		varchar(50) REFERENCES pfmaindetail(pfPortfolioid),
     pfstExchange		varchar(7) NOT NULL,
     pfstTradingsymbl	varchar(15) NOT NULL,
     pfstAmt             numeric(16,5),
-    pfstPercent         numeric(3,2),
+    pfstPercent         numeric(5,2),
     pfstAllotedAmt 		numeric(16,5) NOT NULL,
     pfstTotUnit			numeric(16,0) NOT NULL,
 	pfstoctime			timestamp NOT NULL,
@@ -28,11 +35,36 @@ CREATE TABLE pfmaindetail (
     );
 	
     CREATE TABLE pfmflist (
-    pfPortfolioid 	varchar(50) CONSTRAINT mfporfolioid PRIMARY KEY,	
-    pfmfFundname		varchar(7) NOT NULL,
+    pfmflistid			varchar(50)	CONSTRAINT mfporfolioid PRIMARY KEY,
+    pfPortfolioid 		varchar(50) REFERENCES pfmaindetail(pfPortfolioid),	
+    pfmfFundname		varchar(100) NOT NULL,
     pfmfAmt             numeric(16,5),
-    pfmfPercent         numeric(3,2),
+    pfmfPercent         numeric(5,2),
     pfmfAllotedAmt 		numeric(16,5) NOT NULL,
 	pfmfoctime			timestamp NOT NULL,
     pfmflmtime			timestamp NOT NULL
     );
+    
+
+    
+    INSERT INTO pfmaindetail
+(pfPortfolioid,pfuserid,pfPortfolioname,pfPurpose,pfBeneUsers,pfStartDt,pfTargetDt,pfTargetIntRate,pfPlannedInvAmt,pfInvAmtFeq,pfStkAmtsplittype,pfmfAmtsplittype,pfoctime,pflmtime)
+VALUES
+(1,'AB001','NATRAYAN RETIRMENT','To Save for Retairment','','31-oct-2017','30-nov-2017',8.5,10000,'Daily','Amount','%','31-oct-2017','31-oct-2017'),
+(2,'AB001','ANANTHI RETIRMENT','To Save for ANA Retairment','','15-nov-2017','30-nov-2020',9.5,1200,'Mothly','%','Amount','31-oct-2017','31-oct-2017')
+;
+
+INSERT INTO pfstklist
+(pfstklistid,pfPortfolioid,pfstExchange,pfstTradingsymbl,pfstAmt,pfstPercent,pfstAllotedAmt,pfstTotUnit,pfstoctime,pfstlmtime)
+VALUES
+(1,1,'NSE','ITC',3000,0,3000,20,'31-oct-2017','31-oct-2017'),
+(2,1,'NSE','SBI',3500,0,3500,10,'31-oct-2017','31-oct-2017'),
+(3,2,'NSE','TATA',0,40,480,1,'31-oct-2017','31-oct-2017');
+
+INSERT INTO pfmflist
+(pfmflistid,pfPortfolioid,pfmfFundname,pfmfAmt,pfmfPercent,pfmfAllotedAmt,pfmfoctime,pfmflmtime)
+VALUES
+(1,1,'BIRLA MNC',0,20,2000,'31-oct-2017','31-oct-2017'),
+(2,1,'ICICI PRU',0,15,1500,'31-oct-2017','31-oct-2017'),
+(3,2,'QUANTUM EQU',720,0,720,'31-oct-2017','31-oct-2017');
+
