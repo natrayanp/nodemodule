@@ -8,6 +8,7 @@ CREATE TABLE pfmaindetail (
     pfTargetDt			date NOT NULL,
     pfTargetIntRate 	numeric(3,2) NOT NULL,
     pfPlannedInvAmt 	numeric(16,5) NOT NULL,
+    pfInvAmtFeq         varchar(10),
     pfStkAmtsplittype   varchar(10),
     pfmfAmtsplittype    varchar(10),    
     pfoctime			timestamp NOT NULL,
