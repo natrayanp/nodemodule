@@ -5,7 +5,7 @@
 
 
 CREATE TABLE pfmaindetail (
-    pfPortfolioid 		varchar(50) CONSTRAINT porfolioid PRIMARY KEY,
+    pfPortfolioid 		varchar(50) CONSTRAINT porfolioid PRIMARY KEY, --> use userid+running number
 	pfuserid 			varchar(40) NOT NULL,
     pfPortfolioname		varchar(100) NOT NULL,
     pfPurpose			varchar(600),
@@ -22,7 +22,7 @@ CREATE TABLE pfmaindetail (
     );
 	
   CREATE TABLE pfstklist (
-    pfstklistid			varchar(50) CONSTRAINT stporfolioid PRIMARY KEY,
+    pfstklistid			varchar(50) CONSTRAINT stporfolioid PRIMARY KEY,  --> use date+running number for that date
     pfPortfolioid 		varchar(50) REFERENCES pfmaindetail(pfPortfolioid),
     pfstExchange		varchar(7) NOT NULL,
     pfstTradingsymbl	varchar(15) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE pfmaindetail (
     );
 	
     CREATE TABLE pfmflist (
-    pfmflistid			varchar(50)	CONSTRAINT mfporfolioid PRIMARY KEY,
+    pfmflistid			varchar(50)	CONSTRAINT mfporfolioid PRIMARY KEY, --> use date+running number for that date
     pfPortfolioid 		varchar(50) REFERENCES pfmaindetail(pfPortfolioid),	
     pfmfFundname		varchar(100) NOT NULL,
     pfmfAmt             numeric(16,5),
