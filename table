@@ -1,4 +1,4 @@
-  CREATE TABLE pfmaindetail (
+CREATE TABLE pfmaindetail (
     pfPortfolioid 		varchar(50) CONSTRAINT porfolioid PRIMARY KEY,
 	pfuserid 			varchar(40) NOT NULL,
     pfPortfolioname		varchar(100) NOT NULL,
@@ -7,7 +7,9 @@
     pfStartDt			date NOT NULL,
     pfTargetDt			date NOT NULL,
     pfTargetIntRate 	numeric(3,2) NOT NULL,
-    pfPlannedInvAmt 	numeric(16,5) NOT NULL,    
+    pfPlannedInvAmt 	numeric(16,5) NOT NULL,
+    pfStkAmtsplittype   varchar(10),
+    pfmfAmtsplittype    varchar(10),    
     pfoctime			timestamp NOT NULL,
     pflmtime			timestamp NOT NULL
     );
@@ -15,9 +17,11 @@
   CREATE TABLE pfstklist (
     pfPortfolioid 	varchar(50) CONSTRAINT stporfolioid PRIMARY KEY,	
     pfstExchange		varchar(7) NOT NULL,
-    pfstTradingsymbl	varchar(15),
+    pfstTradingsymbl	varchar(15) NOT NULL,
+    pfstAmt             numeric(16,5),
+    pfstPercent         numeric(3,2),
     pfstAllotedAmt 		numeric(16,5) NOT NULL,
-    pfstTotUnit			integer NOT NULL,
+    pfstTotUnit			numeric(16,0) NOT NULL,
 	pfstoctime			timestamp NOT NULL,
     pfstlmtime			timestamp NOT NULL
     );
@@ -25,6 +29,8 @@
     CREATE TABLE pfmflist (
     pfPortfolioid 	varchar(50) CONSTRAINT mfporfolioid PRIMARY KEY,	
     pfmfFundname		varchar(7) NOT NULL,
+    pfmfAmt             numeric(16,5),
+    pfmfPercent         numeric(3,2),
     pfmfAllotedAmt 		numeric(16,5) NOT NULL,
 	pfmfoctime			timestamp NOT NULL,
     pfmflmtime			timestamp NOT NULL
